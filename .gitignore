@@ -1,3 +1,6 @@
 .idea
 .idea/*
 .gradle/*
+build
+build/*
+src/main/java/br/com/routes/RoutesCommand.class
