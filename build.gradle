@@ -4,6 +4,7 @@ plugins {
 }
 
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'groovy'
 
 
 group = 'br.com'
@@ -18,4 +19,7 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.spockframework:spock-core:1.2-groovy-2.4'
+	testImplementation 'org.spockframework:spock-spring:1.2-groovy-2.4'
+	testImplementation 'com.athaydes:spock-reports:1.6.2'
 }
