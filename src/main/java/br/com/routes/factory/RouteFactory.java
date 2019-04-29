@@ -68,7 +68,7 @@ public class RouteFactory {
 	private static void validate(String[] routeElements) throws InvalidStringRouteException {
 
 		if (routeElements.length != 3) {
-			LOGGER.warning(String.format("Rota invalida: %s", routeElements));
+			LOGGER.warning(String.format("Rota invalida: %s", String.join(",", routeElements)));
 			throw new InvalidStringRouteException();
 		}
 	}

@@ -8,8 +8,8 @@ class RoutesLoadServiceSpecification extends Specification {
 
     def "Carregar arquivo de rotas com tres rotas"() {
 
-        given: "Reader de um arquivo com tres rotas da cidade A para B, C e D"
-        BufferedReader reader = createReader(Arrays.asList("A,B,5\n", "A,C,7\n", "A,D,9\n"))
+        given: "Reader de um arquivo com tres rotas da cidade A1 para B1, C1 e D1"
+        BufferedReader reader = createReader(Arrays.asList("A1,B1,5\n", "A1,C1,7\n", "A1,D1,9\n"))
 
         when: "As rotas forem carregadas"
         Map<String, City> actual = new RoutesLoadService().loadCityWithRoutes(reader)
@@ -17,20 +17,20 @@ class RoutesLoadServiceSpecification extends Specification {
         then: "Devemos ter 4 cidades incluidas"
         actual.size() == 4
 
-        then: "Devemos ter tres rotas cadastradas na cidade A"
-        actual.get("A").getDestinationCity().size() == 3
+        then: "Devemos ter tres rotas cadastradas na cidade A1"
+        actual.get("A1").getDestinationCity().size() == 3
 
     }
 
-    def BufferedReader createReader(List<String> routes) {
+    def createReader(List<String> routes) {
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream()
         routes.each { r -> baos.write(r.getBytes()) }
-        Reader reader = new InputStreamReader(new ByteArrayInputStream(baos.toByteArray()));
-        return new BufferedReader(reader);
+        Reader reader = new InputStreamReader(new ByteArrayInputStream(baos.toByteArray()))
+        return new BufferedReader(reader)
     }
 
-    void cleanup() {
+    void setup() {
         CityFactory.getCreatedCities().clear()
     }
 }

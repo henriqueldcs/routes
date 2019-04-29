@@ -33,9 +33,6 @@ class RouteCreationSpecification extends Specification {
         ex.message == "Rota invalida!"
     }
 
-    def getExpectedRoute() {
-        return new Route(CityFactory.create("GRU"), CityFactory.create("BRC"), 10)
-    }
 
     def "Inserir Rota criada na cidade de origem"() {
 
@@ -62,5 +59,13 @@ class RouteCreationSpecification extends Specification {
         then: "Uma excecao de rota duplicada deve ocorrer"
         thrown RouteAlreadyExistsException
 
+    }
+
+    void setup() {
+        CityFactory.getCreatedCities().clear()
+    }
+
+    def getExpectedRoute() {
+        return CityFactory.create("GRU").getDestinationCity().get(CityFactory.create("BRC"))
     }
 }
