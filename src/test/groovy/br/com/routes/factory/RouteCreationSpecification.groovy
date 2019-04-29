@@ -9,7 +9,7 @@ class RouteCreationSpecification extends Specification {
     def "Criar rota para entre duas cidades"() {
 
 
-        given: "Uma string com o formato GRU,BRC,10"
+        given: "Uma string de rota com o formato GRU,BRC,10"
         String pathString = "GRU,BRC,10"
 
         when: "For chamada a rotina de criacao de rotas"
@@ -21,7 +21,7 @@ class RouteCreationSpecification extends Specification {
 
     def "Tentar criar rota com string invalida"() {
 
-        given: "Uma string com o formato ivalido:  GRU;BRC10"
+        given: "Uma string de rota com o formato ivalido:  GRU;BRC10"
         String pathString = "GRU;BRC10"
 
         when: "For chamada a rotina de criacao de rotas"
