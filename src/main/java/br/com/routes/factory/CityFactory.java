@@ -35,4 +35,13 @@ public class CityFactory {
 
 		return cities.get(name);
 	}
+
+	/**
+	 * Peta mapa de cidades criadas.
+	 *
+	 * @return o mapa de cidades.
+	 */
+	public static Map<String, City> getCreatedCities() {
+		return cities;
+	}
 }
