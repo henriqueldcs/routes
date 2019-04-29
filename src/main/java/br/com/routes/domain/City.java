@@ -1,8 +1,8 @@
 package br.com.routes.domain;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import br.com.routes.exceptions.RouteAlreadyExistsException;
+
+import java.util.*;
 
 public class City {
 
@@ -10,12 +10,14 @@ public class City {
 	private List<City> shortestPath;
 	private Integer distanceFromOrigin;
 	private City previousCity;
+	private Map<City, Route> destinationCity;
 
 	public City(final String name) {
 		this.name = name;
 		shortestPath = new LinkedList<>();
 		distanceFromOrigin = Integer.MAX_VALUE;
 		previousCity = null;
+		destinationCity = new HashMap<>();
 	}
 
 	public String getName() {
@@ -50,6 +52,10 @@ public class City {
 		this.previousCity = previousCity;
 	}
 
+	public Map<City, Route> getDestinationCity() {
+		return destinationCity;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -74,5 +80,21 @@ public class City {
 				", distanceFromOrigin=" + distanceFromOrigin +
 				", previousCity=" + previousCity +
 				'}';
+	}
+
+	/**
+	 * Adiciona rota a lista de rotas de destino.
+	 *
+	 * @param to    cidade destino
+	 * @param route rota
+	 * @throws RouteAlreadyExistsException lancada caso haja uma rota para a cidade de destino cadastrada.
+	 */
+	public void addRoute(City to, Route route) throws RouteAlreadyExistsException {
+
+		if (destinationCity.containsKey(to)) {
+			throw new RouteAlreadyExistsException();
+		}
+
+		destinationCity.put(to, route);
 	}
 }

@@ -3,6 +3,7 @@ package br.com.routes.factory;
 import br.com.routes.domain.City;
 import br.com.routes.domain.Route;
 import br.com.routes.exceptions.InvalidStringRouteException;
+import br.com.routes.exceptions.RouteAlreadyExistsException;
 
 import java.util.logging.Logger;
 
@@ -25,18 +26,19 @@ public class RouteFactory {
 	 * @throws InvalidStringRouteException Quando a string de rota for invalida.
 	 */
 
-	public static Route create(String routeStirng) throws InvalidStringRouteException {
+	public static Route create(String routeStirng) throws InvalidStringRouteException, RouteAlreadyExistsException {
 
 		LOGGER.info(String.format("rota: %s", routeStirng));
 
 		String routeElements[] = routeStirng.split(",");
 		validate(routeElements);
 
-		final String from = routeElements[0];
-		final String to = routeElements[1];
+		final City from = CityFactory.create(routeElements[0]);
+		final City to = CityFactory.create(routeElements[1]);
 		final Integer distance = getIntDistance(routeElements[2]);
+		final Route route = new Route(from, to, distance);
 
-		return new Route(CityFactory.create(from), CityFactory.create(to), distance);
+		return route;
 	}
 
 	/**

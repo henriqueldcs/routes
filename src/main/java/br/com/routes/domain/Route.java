@@ -1,5 +1,7 @@
 package br.com.routes.domain;
 
+import br.com.routes.exceptions.RouteAlreadyExistsException;
+
 import java.util.Objects;
 
 public class Route {
@@ -8,9 +10,10 @@ public class Route {
 	private City to;
 	private Integer distance;
 
-	public Route(City from, City to, Integer distance) {
+	public Route(City from, City to, Integer distance) throws RouteAlreadyExistsException {
 		this.from = from;
 		this.to = to;
+		this.from.addRoute(this.to, this);
 		this.distance = distance;
 	}
 
