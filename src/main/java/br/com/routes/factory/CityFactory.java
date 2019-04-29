@@ -4,12 +4,17 @@ import br.com.routes.domain.City;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * Factory de {@link City}
  */
 public class CityFactory {
 
+	/**
+	 * LOG
+	 */
+	private static final Logger LOGGER = Logger.getLogger(CityFactory.class.getName());
 
 	private final static Map<String, City> cities = new HashMap<>();
 
@@ -21,6 +26,8 @@ public class CityFactory {
 	 * @return A cidade criada.
 	 */
 	public static City create(String name) {
+
+		LOGGER.info(String.format("city: %s", name));
 
 		if (!cities.containsKey(name)) {
 			cities.put(name, new City(name));
