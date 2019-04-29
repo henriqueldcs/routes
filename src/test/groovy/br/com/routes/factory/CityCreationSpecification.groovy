@@ -1,36 +1,34 @@
 package br.com.routes.factory
 
+import br.com.routes.domain.City
 import spock.lang.Specification
 
 class CityCreationSpecification extends Specification {
 
-    def "one plus one should equal two"() {
-        expect:
-        1 + 1 == 2
-    }
-
     def "Criar uma nova cidade unica"() {
 
         given: "Um nome de cidade nao criado ainda"
-            String name = "SP"
+        String name = "SP"
 
         when: "For chamada a rotina de criacao de cidades"
-            //TODO CityFactory
+        City city = CityFactory.create(name)
 
-        then: "A nova cidade deve ser criada"
-            //todo City
+        then: "A nova cidade com o nome SP deve ser criada"
+        name == city.getName()
+
     }
 
     def "Criar uma cidade ja criada"() {
 
         given: "Um nome de cidade ja criado"
+        String name = "SP"
+        City cityExpected = CityFactory.create(name)
 
         when: "For chamada a rotina de criacao de cidades"
-        //TODO CityFactory
+        City city = CityFactory.create(name)
 
         then: "A cidade ja criada deve ser retornada"
-        //todo City
-
+        city == cityExpected
     }
 
 }
