@@ -1,6 +1,10 @@
 package br.com.routes.factory
 
-class RouteCreationSpecification {
+import br.com.routes.domain.Route
+import br.com.routes.exceptions.InvalidStringRouteException
+import spock.lang.Specification
+
+class RouteCreationSpecification extends Specification {
 
     def "Criar rota para entre duas cidades"() {
 
@@ -15,7 +19,7 @@ class RouteCreationSpecification {
         createdRoute.equals(getExpectedRoute())
     }
 
-    def "Tentar criar rota com rota invalido"() {
+    def "Tentar criar rota com string invalida"() {
 
         given: "Uma string com o formato ivalido:  GRU;BRC10"
         String pathString = "GRU;BRC10"
@@ -25,7 +29,10 @@ class RouteCreationSpecification {
 
         then: "Deve lancar a excecao de rota invalido"
         InvalidStringRouteException ex = thrown()
-        ex.message == "Caminho invalido!"
+        ex.message == "Rota invalida!"
     }
 
+    def getExpectedRoute() {
+        return new Route(CityFactory.create("GRU"), CityFactory.create("BRC"), 10)
+    }
 }
