@@ -35,4 +35,24 @@ class RouteCreationSpecification extends Specification {
     def getExpectedRoute() {
         return new Route(CityFactory.create("GRU"), CityFactory.create("BRC"), 10)
     }
+
+    def "Inserir Rota criada na cidade de origem"() {
+
+        given: "Uma string de rota com o formato GRU,BRC,10"
+
+        when: "For chamada a rotina de criacao de rotas"
+
+        then: "A rota deve ter estar presente na cidade GRU como rotas de destino"
+
+    }
+
+    def "Inserir Rota duplicada na cidade de origem"() {
+
+        given: "Uma string de rota ja incluida com o formato GRU,BRC,10"
+
+        when: "For chamada a rotina de criacao de rotas"
+
+        then: "Uma excecao de rota duplicada deve ocorrer"
+
+    }
 }
