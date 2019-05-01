@@ -10,7 +10,7 @@ public class City {
 	private List<City> shortestPath;
 	private Integer distanceFromOrigin;
 	private City previousCity;
-	private Map<City, Route> destinationCity;
+	private final Map<City, Route> destinationCity;
 
 	public City(final String name) {
 		this.name = name;
@@ -24,7 +24,7 @@ public class City {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -32,7 +32,7 @@ public class City {
 		return shortestPath;
 	}
 
-	public void setShortestPath(List<City> shortestPath) {
+	public void setShortestPath(final List<City> shortestPath) {
 		this.shortestPath = shortestPath;
 	}
 
@@ -40,7 +40,7 @@ public class City {
 		return distanceFromOrigin;
 	}
 
-	public void setDistanceFromOrigin(int distanceFromOrigin) {
+	public void setDistanceFromOrigin(final int distanceFromOrigin) {
 		this.distanceFromOrigin = distanceFromOrigin;
 	}
 
@@ -48,7 +48,7 @@ public class City {
 		return previousCity;
 	}
 
-	public void setPreviousCity(City previousCity) {
+	public void setPreviousCity(final City previousCity) {
 		this.previousCity = previousCity;
 	}
 
@@ -57,10 +57,10 @@ public class City {
 	}
 
 	@Override
-	public boolean equals(Object o) {
+	public boolean equals(final Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		City city = (City) o;
+		final City city = (City) o;
 		return Objects.equals(getName(), city.getName()) &&
 				Objects.equals(getShortestPath(), city.getShortestPath()) &&
 				Objects.equals(getDistanceFromOrigin(), city.getDistanceFromOrigin()) &&
@@ -89,7 +89,7 @@ public class City {
 	 * @param route rota
 	 * @throws RouteAlreadyExistsException lancada caso haja uma rota para a cidade de destino cadastrada.
 	 */
-	public void addRoute(City to, Route route) throws RouteAlreadyExistsException {
+	public void addRoute(final City to, final Route route) throws RouteAlreadyExistsException {
 
 		if (destinationCity.containsKey(to)) {
 			throw new RouteAlreadyExistsException();
@@ -97,4 +97,16 @@ public class City {
 
 		destinationCity.put(to, route);
 	}
+
+	/**
+	 * Cria uma lista de menor caminho considerando o caminho da cidade passada como parametro e a adiciona a lista.
+	 *
+	 * @param city cidade de referencia para criação do menor caminho.
+	 */
+	public void createShortestPath(final City city) {
+		this.shortestPath = new LinkedList<>(city.getShortestPath());
+		this.shortestPath.add(city);
+	}
+
+
 }

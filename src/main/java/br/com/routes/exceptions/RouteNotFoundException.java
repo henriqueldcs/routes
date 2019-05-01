@@ -1,5 +1,8 @@
 package br.com.routes.exceptions;
 
+/**
+ * Exceção para rota não encontrada.
+ */
 public class RouteNotFoundException extends Exception {
 
 	public RouteNotFoundException(final String from, final String to) {
