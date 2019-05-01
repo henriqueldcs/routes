@@ -10,9 +10,21 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.util.Map;
 
+/**
+ * Serviço responsavel por carregar as rotas presentes em um arquivo.
+ */
 @Service
 public class RoutesLoadService {
 
+	/**
+	 * Carrega cidades com suas rotas de um arquivo.
+	 *
+	 * @param file arquivo com lista de rotas.
+	 * @return mapa de nomes / cidades.
+	 * @throws IOException
+	 * @throws InvalidStringRouteException
+	 * @throws RouteAlreadyExistsException
+	 */
 	public Map<String, City> loadCityWithRoutes(final BufferedReader file) throws IOException, InvalidStringRouteException, RouteAlreadyExistsException {
 
 		String routeString;
@@ -22,25 +34,16 @@ public class RoutesLoadService {
 		return CityFactory.getCreatedCities();
 	}
 
+	/**
+	 * Abre arquivo de rotas entre cidades informado como parametro na inicialização da aplicação.s
+	 *
+	 * @return reader do arquivo de rotas.
+	 * @throws FileNotFoundException
+	 */
 	public static BufferedReader createDefaultReader() throws FileNotFoundException {
-		File f = new File("/resources/input.txt");
-		FileReader fr = new FileReader(f);
+		final File f = new File("/resources/input.txt");
+		final FileReader fr = new FileReader(f);
 		return new BufferedReader(fr);
-	}
-
-	public static void main(String args[]) throws IOException, InvalidStringRouteException, RouteAlreadyExistsException {
-
-		RoutesLoadService rls = new RoutesLoadService();
-
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		baos.write("GRU,BRC,10\n".getBytes());
-		baos.write("GRU,z,10\n".getBytes());
-
-		Reader reader = new InputStreamReader(new ByteArrayInputStream(baos.toByteArray()));
-		BufferedReader br = new BufferedReader(reader);
-
-		rls.loadCityWithRoutes(br);
-
 	}
 }
 
