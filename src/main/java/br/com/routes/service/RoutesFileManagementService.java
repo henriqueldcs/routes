@@ -5,6 +5,7 @@ import br.com.routes.exceptions.InvalidStringRouteException;
 import br.com.routes.exceptions.RouteAlreadyExistsException;
 import br.com.routes.factory.CityFactory;
 import br.com.routes.factory.RouteFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -19,7 +20,8 @@ public class RoutesFileManagementService {
 	/**
 	 * Default file path.
 	 */
-	private static final String defaultFilePath = "/resources/input.txt";
+	@Value("${default.file.path}")
+	private String defaultFilePath;
 
 	/**
 	 * Carrega cidades com suas rotas de um arquivo.
