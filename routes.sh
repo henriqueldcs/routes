@@ -2,13 +2,13 @@
 
 CONT=$(docker ps -aq --filter ancestor=bexs/routes)
 
-if [[ ! -z $CONT ]]
+if [ -z $CONT ]
 then
-	echo $(docker stop $CONT)
+    echo "Starting project"
+    ./gradlew build
+    docker build --force-rm -t bexs/routes .
+    docker run --rm -d -e DEFAULT_FILE_PATH=/resources/input.txt -p 8080:8080 -v $(pwd)/$1:/resources/input.txt --name routes bexs/routes
+    sleep 3
 fi
 
-./gradlew build
-docker build --force-rm -t bexs/routes .
-docker run --rm -d -p 8080:8080 -v $(pwd)/$1:/resources/input.txt --name routes bexs/routes
-echo "\n\nStarting...\n\n"
 ./calculate.sh
