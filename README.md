@@ -51,6 +51,8 @@ de qualquer navegador.
 O projeto foi construido utilizando [Spring boot](https://spring.io/projects/spring-boot) com o 
 objetivo de tornar mais produtivo o processo de criação da aplicação, configuração e disponibilização dos endpoints.
 
+O algoritmo escolhido para encontrar o melhor caminho foi o de [Dijkstra](https://pt.wikipedia.org/wiki/Algoritmo_de_Dijkstra)
+
 O desenvolvimento foi realizado utilizando a metodologia de desenvolvimento guiado por comportamento ([BDD](https://pt.wikipedia.org/wiki/Behavior_Driven_Development)), 
 para a criação dos testes foi utilizado o [Spock](http://spockframework.org/), framework que permite a escrita de especificações
 e testes de maneira legivel e possibilita a criação de um relatório de execução de testes. 
