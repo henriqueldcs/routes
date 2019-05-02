@@ -14,10 +14,8 @@ public class City {
 
 	public City(final String name) {
 		this.name = name;
-		shortestPath = new LinkedList<>();
-		distanceFromOrigin = Integer.MAX_VALUE;
-		previousCity = null;
 		destinationCity = new HashMap<>();
+		resetBestRouteData();
 	}
 
 	public String getName() {
@@ -76,7 +74,6 @@ public class City {
 	public String toString() {
 		return "City{" +
 				"name='" + name + '\'' +
-				", shortestPath=" + shortestPath +
 				", distanceFromOrigin=" + distanceFromOrigin +
 				", previousCity=" + previousCity +
 				'}';
@@ -108,5 +105,13 @@ public class City {
 		this.shortestPath.add(city);
 	}
 
+	/**
+	 * Reseta todos os dados usado para o calculo do menor caminho.
+	 */
+	public void resetBestRouteData() {
 
+		shortestPath = new LinkedList<>();
+		distanceFromOrigin = Integer.MAX_VALUE;
+		previousCity = null;
+	}
 }

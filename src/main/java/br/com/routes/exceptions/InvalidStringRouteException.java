@@ -9,4 +9,7 @@ public class InvalidStringRouteException extends Exception {
 		super("Rota invalida!");
 	}
 
+	public InvalidStringRouteException(final String message) {
+		super(message);
+	}
 }

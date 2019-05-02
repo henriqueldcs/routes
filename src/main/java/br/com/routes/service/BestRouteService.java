@@ -5,6 +5,7 @@ import br.com.routes.dto.BestRoutePriceDTO;
 import br.com.routes.exceptions.RouteNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -25,7 +26,7 @@ public class BestRouteService {
 
 		checkIfRouteWasFound(fromCity, toCity);
 
-		final List<City> bestRoute = toCity.getShortestPath();
+		final List<City> bestRoute = new LinkedList<>(toCity.getShortestPath());
 		bestRoute.add(toCity);
 
 		return new BestRoutePriceDTO(bestRoute, toCity.getDistanceFromOrigin());

@@ -1,15 +1,18 @@
 package br.com.routes.dto;
 
 import br.com.routes.domain.City;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
  * DTO de menor caminho.
  */
-public class BestRoutePriceDTO {
+public class BestRoutePriceDTO implements Serializable {
 
+	private static final long serialVersionUID = -1417536920291030839L;
 	private final List<City> bestRoute;
 
 	private final Integer bestPrice;
@@ -24,6 +27,7 @@ public class BestRoutePriceDTO {
 	 *
 	 * @return mensagem com o menor caminho e custo.
 	 */
+	@JsonProperty("bestRoute")
 	public String getBestRouteMessage() {
 
 		final List<String> citiesBestRoute = bestRoute.stream()

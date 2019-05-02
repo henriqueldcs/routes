@@ -26,11 +26,11 @@ public class RouteFactory {
 	 * @throws InvalidStringRouteException Quando a string de rota for invalida.
 	 */
 
-	public static Route create(String routeStirng) throws InvalidStringRouteException, RouteAlreadyExistsException {
+	public static Route create(final String routeStirng) throws InvalidStringRouteException, RouteAlreadyExistsException {
 
 		LOGGER.info(String.format("rota: %s", routeStirng));
 
-		String routeElements[] = routeStirng.split(",");
+		final String[] routeElements = routeStirng.split(",");
 		validate(routeElements);
 
 		final City from = CityFactory.create(routeElements[0]);
@@ -48,11 +48,11 @@ public class RouteFactory {
 	 * @return distancia convertida
 	 * @throws InvalidStringRouteException Quando nao for possivel converter a distancia.
 	 */
-	private static Integer getIntDistance(String distance) throws InvalidStringRouteException {
+	private static Integer getIntDistance(final String distance) throws InvalidStringRouteException {
 
 		try {
 			return Integer.valueOf(distance);
-		} catch (NumberFormatException e) {
+		} catch (final NumberFormatException e) {
 			LOGGER.warning(String.format("Distancia nao eh um inteiro: %s", distance));
 			throw new InvalidStringRouteException();
 		}
@@ -65,11 +65,13 @@ public class RouteFactory {
 	 * @param routeElements rota a validar
 	 * @throws InvalidStringRouteException Quando a string de rota for invalida.
 	 */
-	private static void validate(String[] routeElements) throws InvalidStringRouteException {
+	private static void validate(final String[] routeElements) throws InvalidStringRouteException {
 
 		if (routeElements.length != 3) {
 			LOGGER.warning(String.format("Rota invalida: %s", String.join(",", routeElements)));
 			throw new InvalidStringRouteException();
+		} else if (routeElements[0].equals(routeElements[1])) {
+			throw new InvalidStringRouteException("Impossivel criar rota com mesma origem e destino!");
 		}
 	}
 }

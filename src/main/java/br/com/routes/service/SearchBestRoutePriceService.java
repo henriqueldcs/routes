@@ -42,7 +42,8 @@ public class SearchBestRoutePriceService {
 	 */
 	public BestRoutePriceDTO findBest(final String from, final String to, final Map<String, City> citiesMap) throws CityNotFoundException, RouteNotFoundException {
 
-		logger.info(String.format("Encontrar menor caminho de: %s para: %s", from, to));
+		logger.info(String.format("Encontra menor caminho de: %s para: %s", from, to));
+		citiesMap.values().stream().forEach(City::resetBestRouteData);
 
 		final City fromCity = getCityByName(from, citiesMap);
 		final City toCity = getCityByName(to, citiesMap);
