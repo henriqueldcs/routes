@@ -1,11 +1,88 @@
-# Rota de Viagem #
+# A aplicação #
 
-Um turista deseja viajar pelo mundo pagando o menor preço possível independentemente do número de conexões necessárias.
-Vamos construir um programa que facilite ao nosso turista, escolher a melhor rota para sua viagem.
+Foi criado com o objetivo de atender as necessidades de viajantes que precisam escolher a 
+melhor rota para sua viagem.
+ 
+## Requisitos para a execução ##
 
-Para isso precisamos inserir as rotas através de um arquivo de entrada.
+- JDK 8
+- Docker
+- Gradle 5
 
-## Input Example ##
+## Como executar a aplicação ##
+
+### Execução via linha de comandos ###
+
+Acesse o diretório raiz do projeto e adicione a ele o arquivo de rotas desejado. 
+
+Após isso execute a seguinte instrução, pelo terminal, dentro da raiz do projeto:
+
+```bash
+./routes ARQUIVO_DE_INPUT
+```
+
+No terminal, será solicitada a rota que deseja saber o menor caminho. 
+Utilize o formato `GRU-BRC` e pressione a tecla ENTER. 
+
+Tambem estará disponível a api para consulta de rota e cadastro de novas rotas, que pode ser 
+acessada através do link: http://localhost:8080/swagger-ui.html
+
+### Encerrando a execução ##
+
+O encerramento do script no terminal pode ser realizado digitando `exit` quando uma rota for solicitada.
+
+O encerramento da linha de comandos não encerra a API, para que isso ocorra será preciso executar
+a seguinte instrução:
+
+```docker stop routes```
+
+## Testes ##
+
+Para executar os testes, na raiz do projeto, via terminal, execute:
+
+```./gradlew build test```
+
+É gerado um relatório da execução dos testes na pasta `build/spock-reports/index.html` que pode ser visualizado através 
+de qualquer navegador.
+
+
+## Decisões de design adotadas para a solução ##
+
+O projeto foi construido utilizando [Spring boot](https://spring.io/projects/spring-boot) com o 
+objetivo de tornar mais produtivo o processo de criação da aplicação, configuração e disponibilização dos endpoints.
+
+O desenvolvimento foi realizado utilizando a metodologia de desenvolvimento guiado por comportamento ([BDD](https://pt.wikipedia.org/wiki/Behavior_Driven_Development)), 
+para a criação dos testes foi utilizado o [Spock](http://spockframework.org/), framework que permite a escrita de especificações
+e testes de maneira legivel e possibilita a criação de um relatório de execução de testes. 
+
+A aplicação é publicada em um container no [docker](https://docs.docker.com/).
+
+O [Swagger](https://swagger.io/) foi utilizado para criar uma documentação da API e facilitar a execução das mesmas.
+
+Para atender os requisitos de que a aplicação deveria ser executada via linha de comandos, foi criado um script bash que 
+abstrai o processo de build, publicação, execução do projeto e inicialização da app na linha de comandos.
+
+ 
+## Descreva sua API Rest de forma simplificada ##
+
+Dois enpoints foram disponibilizados.
+
+- Melhor caminho: Acessado através de uma requisição de GET para a url `http://localhost:8080/routes/best/from/{from}/to/{to} `.
+- Adição de novas rotas: Executado por uma requisição de POST para `http://localhost:8080/routes`
+
+## Estrutura dos arquivos/pacotes ##
+
+Na raiz do projeto temos os seguinte arquivos:
+- routes: Os códigos do projeto.
+- routes.sh: Script responsavel por executar o projeto e executar consulta de rotas via linha de comandos.
+- calculate.sh: Executa apenas a consulta da melhor rota. Pode ser chamado caso o projeto já esteja em execução.
+- input.txt: arquivo de input de exemplo, utilizado para validações durante o desenvolvimento.
+
+
+### Input Example ##
+
+O arquivo de input a ser utilizado deve ser inserido na raiz do projeto.
+
 ```csv
 GRU,BRC,10
 BRC,SCL,5
@@ -26,42 +103,3 @@ Caso desejemos viajar de **GRU** para **CDG** existem as seguintes rotas:
 5. GRU - BRC - CDG ao custo de **$45**
 
 O melhor preço é da rota **4** logo, o output da consulta deve ser **CDG - SCL - ORL - CDG**.
-
-### Execução do programa ###
-A inicializacao do teste se dará por linha de comando onde o primeiro argumento é o arquivo com a lista de rotas inicial.
-
-```shell
-$ mysolution input-routes.csv
-```
-
-Duas interfaces de consulta devem ser implementadas:
-- Interface de console deverá receber um input com a rota no formato "DE-PARA" e imprimir a melhor rota e seu respectivo valor.
-  Exemplo:
-  ```shell
-  please enter the route: GRU-CGD
-  best route: GRU - BRC - SCL - ORL - CDG > $40
-  please enter the route: BRC-CDG
-  best route: BRC - ORL > $30
-  ```
-
-- Interface Rest
-    A interface Rest deverá suportar:
-    - Registro de novas rotas. Essas novas rotas devem ser persistidas no arquivo csv utilizado como input(input-routes.csv),
-    - Consulta de melhor rota entre dois pontos.
-
-Também será necessária a implementação de 2 endpoints Rest, um para registro de rotas e outro para consula de melhor rota.
-
-## Recomendações ##
-Para uma melhor fluides da nossa conversa, atente-se aos seguintes pontos:
-
-* Envie apenas o código fonte,
-* Estruture sua aplicação seguindo as boas práticas de desenvolvimento,
-* Evite o uso de frameworks ou bibliotecas externas à linguagem. Utilize apenas o que for necessário para a exposição do serviço,
-* Implemente testes unitários seguindo as boas praticas de mercado,
-* Documentação
-  Em um arquivo Texto ou Markdown descreva:
-  * Como executar a aplicação,
-  * Estrutura dos arquivos/pacotes,
-  * Explique as decisões de design adotadas para a solução,
-  * Descreva sua APÌ Rest de forma simplificada.
-
